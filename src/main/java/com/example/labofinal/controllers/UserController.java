@@ -30,21 +30,21 @@ public class UserController {
     }
 
 
-    @GetMapping
-    public ResponseEntity<UserDTO> getOne(Long id){
+    @GetMapping("/{id:[0-9]+}")
+    public ResponseEntity<UserDTO> getOne(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.FOUND).body(UserDTO.toDto(userService.getOne(id)));
     }
 
 
-    @PutMapping
-    public ResponseEntity<Void> update(Long id, UserForm form){
+    @PutMapping("/{id:[0-9]+}")
+    public ResponseEntity<Void> update(@PathVariable Long id,@RequestBody UserForm form){
         userService.update(id, form.toEntity());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 
-    @DeleteMapping
-    public ResponseEntity<Void> delete(Long id){
+    @DeleteMapping("/{id:[0-9]+}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         userService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

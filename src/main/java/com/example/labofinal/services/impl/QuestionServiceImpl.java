@@ -65,10 +65,10 @@ public class QuestionServiceImpl implements QuestionService {
         answerRepository.deleteAll(question.getAnswers());
 
         answers.forEach(answer -> answer.setQuestion(question));
-        answerRepository.saveAll(answers);
+        answers = answerRepository.saveAll(answers);
 
         question.setAnswers(answers);
 
-        return questionRepository.save(question).getId();
+        return question.getId();
     }
 }

@@ -1,12 +1,9 @@
 package com.example.labofinal.controllers;
 
-import com.example.labofinal.models.dto.QuestionDTO;
-import com.example.labofinal.models.entity.Question;
-import com.example.labofinal.models.entity.User;
+import com.example.labofinal.models.dto.QuestionSmallDTO;
 import com.example.labofinal.models.forms.AnswerForm;
 import com.example.labofinal.models.forms.QuestionForm;
 import com.example.labofinal.services.QuestionService;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,13 +28,13 @@ public class QuestionController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Set<QuestionDTO>> getAll(){
-        return ResponseEntity.ok(questionService.getAll().stream().map(QuestionDTO::toDTO).collect(Collectors.toSet()));
+    public ResponseEntity<Set<QuestionSmallDTO>> getAll(){
+        return ResponseEntity.ok(questionService.getAll().stream().map(QuestionSmallDTO::toDTO).collect(Collectors.toSet()));
     }
 
     @GetMapping
-    public ResponseEntity<QuestionDTO> getOne(@RequestBody Long id){
-        return ResponseEntity.status(HttpStatus.FOUND).body(QuestionDTO.toDTO(questionService.getOne(id)));
+    public ResponseEntity<QuestionSmallDTO> getOne(@RequestBody Long id){
+        return ResponseEntity.status(HttpStatus.FOUND).body(QuestionSmallDTO.toDTO(questionService.getOne(id)));
     }
 
     @PutMapping("/{id:[0-9]+}")

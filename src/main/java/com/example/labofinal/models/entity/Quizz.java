@@ -17,14 +17,11 @@ public class Quizz {
     @Column(name = "quizz_id", nullable = false)
     private Long id;
 
-    @Column(name = "quizz_name", nullable = false)
-    private String name;
-
     @Column(name = "quizz_date", nullable = false)
     private LocalDate date;
 
-    @Column(name = "quizz_good_answer", nullable = false)
-    private Integer goodAnswer;
+    @Column(name = "quizz_good_answer")
+    private Integer goodAnswer = 0;
 
     @ManyToMany()
     // TODO jointable
