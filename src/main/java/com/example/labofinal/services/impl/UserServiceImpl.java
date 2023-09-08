@@ -5,7 +5,7 @@ import com.example.labofinal.repositories.UserRepository;
 import com.example.labofinal.services.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +13,11 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     public UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -46,7 +48,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.getUserByUsername(username);
+    public UserDetails loadUserByUsername(String username){
+        return userRepository.getUserByUsername(username).orElseThrow();
+    }
+
+    @Override
+    public User login(User entity) {
+        User existingUser = userRepository.getUserByUsername(entity.getUsername()).orElseThrow();
+        if(!passwordEncoder.matches(entity.getPassword(), existingUser.getPassword())){
+            throw new RuntimeException("Wrong password");
+        }
+        return existingUser;
     }
 }
