@@ -31,6 +31,14 @@ public class Question {
     private List<Answer> answers = new ArrayList<>();
 
     @ManyToOne
+    @JoinColumn(name = "type_id", nullable = false)
+    private Type type;
+
+    @ManyToOne
+    @JoinColumn(name = "difficulty_id")
+    private Difficulty difficulty;
+
+    @ManyToOne
     @JoinColumn(name = "creator_id")
     private User creator;
 }

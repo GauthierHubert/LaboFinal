@@ -23,8 +23,13 @@ public class Quizz {
     @Column(name = "quizz_good_answer")
     private Integer goodAnswer = 0;
 
-    @ManyToMany()
+    @ManyToMany
     // TODO jointable
+    @JoinTable(
+            name= "quizz_question",
+            joinColumns = @JoinColumn(name = "quizz_id"),
+            inverseJoinColumns = @JoinColumn(name="question_id")
+    )
     private Set<Question> questionList;
 
     @ManyToMany

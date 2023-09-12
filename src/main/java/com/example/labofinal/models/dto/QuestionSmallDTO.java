@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 public class QuestionSmallDTO {
 
     private String title;
+    private String explication;
     private Set<AnswerDTO> answers;
     private AnswerDTO goodAnswer;
 
@@ -21,6 +22,7 @@ public class QuestionSmallDTO {
 
         return QuestionSmallDTO.builder()
                 .title(entity.getTitle())
+                .explication(entity.getExplication())
                 .answers(entity.getAnswers().stream().map(AnswerDTO::toDTO).collect(Collectors.toSet()))
                 .build();
     }

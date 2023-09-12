@@ -1,7 +1,9 @@
 package com.example.labofinal.services.impl;
 
 import com.example.labofinal.models.entity.Answer;
+import com.example.labofinal.models.entity.Difficulty;
 import com.example.labofinal.models.entity.Question;
+import com.example.labofinal.models.entity.Type;
 import com.example.labofinal.repositories.AnswerRepository;
 import com.example.labofinal.repositories.QuestionRepository;
 import com.example.labofinal.services.QuestionService;
@@ -70,5 +72,10 @@ public class QuestionServiceImpl implements QuestionService {
         question.setAnswers(answers);
 
         return question.getId();
+    }
+
+    @Override
+    public Set<Question> getQuestionByDifficulty(Difficulty difficulty) {
+        return questionRepository.findAllByDifficulty(difficulty);
     }
 }
