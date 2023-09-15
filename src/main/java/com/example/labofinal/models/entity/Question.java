@@ -28,7 +28,7 @@ public class Question {
     private Boolean isAccepted;
 
     @OneToMany(cascade =  {CascadeType.REMOVE}, mappedBy = "question")
-    private List<Answer> answers = new ArrayList<>();
+    private Set<Answer> answers = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "type_id", nullable = false)

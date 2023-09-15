@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/quizz")
 public class QuizzController {
 
@@ -29,10 +30,10 @@ public class QuizzController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> create(@RequestBody QuizzForm quizzForm){
-
+    public ResponseEntity<QuizzDTO> create(@RequestBody QuizzForm quizzForm){
+        System.out.println(quizzForm.getUserId() + " ------------ " + quizzForm.getDifficultyId());
         QuizzMapper quizzMapper = new QuizzMapper(difficultyService, userService, questionService);
-        return ResponseEntity.status(HttpStatus.CREATED).body(quizzService.add(quizzMapper.toEntity(quizzForm)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(QuizzDTO.toDTO(quizzService.getOne(quizzService.add(quizzMapper.toEntity(quizzForm)))));
     }
 
     @GetMapping("/{id:[0-9]+}")

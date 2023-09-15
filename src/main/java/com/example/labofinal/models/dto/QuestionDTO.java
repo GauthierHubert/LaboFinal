@@ -15,7 +15,6 @@ public class QuestionDTO {
     private String title;
     private String explication;
     private Set<AnswerDTO> answers;
-    private AnswerDTO goodAnswer;
     private String creator;
 
     public static QuestionDTO toDTO(Question entity){

@@ -29,7 +29,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         Question finalEntity = questionRepository.save(entity);
 
-        List<Answer> answers = entity.getAnswers();
+        Set<Answer> answers = entity.getAnswers();
         answers.forEach(answer -> answer.setQuestion(finalEntity) );
 
         answerRepository.saveAll( answers );
@@ -69,7 +69,7 @@ public class QuestionServiceImpl implements QuestionService {
         answers.forEach(answer -> answer.setQuestion(question));
         answers = answerRepository.saveAll(answers);
 
-        question.setAnswers(answers);
+        question.setAnswers((answers.stream().collect(Collectors.toSet())));
 
         return question.getId();
     }

@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/question")
 public class QuestionController {
 
@@ -48,8 +49,8 @@ public class QuestionController {
         return ResponseEntity.ok().body(id);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> delete(Long id){
+    @DeleteMapping("/{id:[0-9]+}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         questionService.delete(id);
         return ResponseEntity.ok().build();
     }
