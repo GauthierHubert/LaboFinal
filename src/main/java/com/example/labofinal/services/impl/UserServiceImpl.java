@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public Long add(User entity) {
+        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
        userRepository.save(entity);
        return entity.getId();
     }

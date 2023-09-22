@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -76,6 +77,12 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Set<Question> getQuestionByDifficulty(Difficulty difficulty) {
-        return questionRepository.findAllByDifficulty(difficulty);
+        Random r = new Random();
+        Set<Question> allQuestion = questionRepository.findAllByDifficulty(difficulty);
+
+        while(allQuestion.size() > 10)
+            allQuestion.remove(r.nextInt(allQuestion.size()-1));
+
+        return allQuestion;
     }
 }

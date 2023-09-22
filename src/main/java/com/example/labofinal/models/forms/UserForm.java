@@ -1,6 +1,7 @@
 package com.example.labofinal.models.forms;
 
 import com.example.labofinal.models.entity.User;
+import com.example.labofinal.models.entity.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -23,13 +24,18 @@ public class UserForm {
     @Pattern(regexp = "^(?=.*[!=@#|$%^&*()_+{}\\\\[\\\\]:;<>,.?~\\\\-]).*(?=.*[A-Z]).*(?=.*[0-9]).*$")
     private String password;
 
+    @NotBlank
+    private Role role;
+
 
     public User toEntity(){
+        System.out.println("test");
         User user = new User();
         user.setUsername(username);
         user.setMail(mail);
         user.setPassword(password);
         user.setRank(0);
+        user.getRoles().add(role);
         return user;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.labofinal.models.forms;
 
+import com.example.labofinal.models.entity.Question;
 import com.example.labofinal.models.entity.Quizz;
 import com.example.labofinal.services.DifficultyService;
 import com.example.labofinal.services.QuestionService;

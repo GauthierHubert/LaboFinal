@@ -3,6 +3,7 @@ package com.example.labofinal.controllers;
 import com.example.labofinal.models.dto.QuestionSmallDTO;
 import com.example.labofinal.models.forms.AnswerForm;
 import com.example.labofinal.models.forms.QuestionForm;
+import com.example.labofinal.services.DifficultyService;
 import com.example.labofinal.services.QuestionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,11 @@ import java.util.stream.Collectors;
 public class QuestionController {
 
     private final QuestionService questionService;
+    private final DifficultyService difficultyService;
 
-    public QuestionController(QuestionService questionService) {
+    public QuestionController(QuestionService questionService, DifficultyService difficultyService) {
         this.questionService = questionService;
+        this.difficultyService = difficultyService;
     }
 
     @PostMapping
@@ -33,9 +36,9 @@ public class QuestionController {
         return ResponseEntity.ok(questionService.getAll().stream().map(QuestionSmallDTO::toDTO).collect(Collectors.toSet()));
     }
 
-    @GetMapping
-    public ResponseEntity<QuestionSmallDTO> getOne(@RequestBody Long id){
-        return ResponseEntity.status(HttpStatus.FOUND).body(QuestionSmallDTO.toDTO(questionService.getOne(id)));
+    @GetMapping("/one/{id:[0-9]+}")
+    public ResponseEntity<QuestionSmallDTO> getOne(@PathVariable Long id){
+        return ResponseEntity.ok(QuestionSmallDTO.toDTO(questionService.getOne(id)));
     }
 
     @PutMapping("/{id:[0-9]+}")

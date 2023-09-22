@@ -4,16 +4,33 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+  mail:
+    host: smtp-mail.outlook.com
+    port: 587
+    username: quizzy-no-reply@outlook.com
+    password: QuizzySecret2x
+    properties:
+      mail:
+        protocol: smtp
+        tls:
+          true
+        smtp:
+          auth: true
+          starttls:
+            enable:
+              true
+          ssl:
+            trust:
+              smtp-mail.outlook.com:
+
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
 
-
-
-springdoc:
-  swagger-ui:
-    path: /swagger
+  springdoc:
+    swagger-ui:
+      path: /swagger
