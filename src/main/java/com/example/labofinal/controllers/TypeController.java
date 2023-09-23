@@ -15,8 +15,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/type")
 @CrossOrigin("*")
+@RequestMapping("/type")
 public class TypeController {
 
     private final TypeService typeService;
