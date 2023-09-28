@@ -78,11 +78,12 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Set<Question> getQuestionByDifficulty(Difficulty difficulty) {
         Random r = new Random();
-        Set<Question> allQuestion = questionRepository.findAllByDifficulty(difficulty);
+        List<Question> allQuestion = questionRepository.findAllByDifficulty(difficulty);
 
-        while(allQuestion.size() > 10)
-            allQuestion.remove(r.nextInt(allQuestion.size()-1));
-
-        return allQuestion;
+        while(allQuestion.size() > 10) {
+            allQuestion.remove(r.nextInt(allQuestion.size() - 1));
+            System.out.println("test");
+        }
+        return allQuestion.stream().collect(Collectors.toSet());
     }
 }

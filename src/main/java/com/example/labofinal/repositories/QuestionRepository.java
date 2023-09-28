@@ -6,9 +6,10 @@ import com.example.labofinal.models.entity.Question;
 import com.example.labofinal.models.entity.Type;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 public interface QuestionRepository  extends JpaRepository<Question, Long> {
-    Set<Question> findAllByDifficulty(Difficulty difficulty);
+    List<Question> findAllByDifficulty(Difficulty difficulty);
 }

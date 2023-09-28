@@ -1,6 +1,7 @@
 package com.example.labofinal.services.impl;
 
 import com.example.labofinal.models.entity.Quizz;
+import com.example.labofinal.models.entity.User;
 import com.example.labofinal.repositories.QuizzRepository;
 import com.example.labofinal.services.QuizzService;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,18 @@ public class QuizzServiceImpl implements QuizzService {
     }
 
     @Override
+    public Quizz create(Quizz entity) {
+        quizzRepository.save(entity);
+        return entity;
+    }
+
+    @Override
+    public List<Quizz> getQuizzById(User user) {
+
+        return quizzRepository.findAllByUser(user);
+    }
+
+    @Override
     public List<Quizz> getAll() {
         return quizzRepository.findAll();
     }
@@ -33,7 +46,6 @@ public class QuizzServiceImpl implements QuizzService {
 
     @Override
     public void update(Long id, Quizz entity) {
-        entity.setId(id);
         quizzRepository.save(entity);
     }
 

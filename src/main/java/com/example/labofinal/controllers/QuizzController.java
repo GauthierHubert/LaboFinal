@@ -1,6 +1,7 @@
 package com.example.labofinal.controllers;
 
 import com.example.labofinal.models.dto.QuizzDTO;
+import com.example.labofinal.models.entity.Quizz;
 import com.example.labofinal.models.forms.QuizzForm;
 import com.example.labofinal.models.forms.QuizzMapper;
 import com.example.labofinal.services.DifficultyService;
@@ -31,9 +32,8 @@ public class QuizzController {
 
     @PostMapping
     public ResponseEntity<QuizzDTO> create(@RequestBody QuizzForm quizzForm){
-        System.out.println(quizzForm.getUserId() + " ------------ " + quizzForm.getDifficultyId());
         QuizzMapper quizzMapper = new QuizzMapper(difficultyService, userService, questionService);
-        return ResponseEntity.status(HttpStatus.CREATED).body(QuizzDTO.toDTO(quizzService.getOne(quizzService.add(quizzMapper.toEntity(quizzForm)))));
+        return ResponseEntity.status(HttpStatus.CREATED).body(QuizzDTO.toDTO(quizzService.create(quizzMapper.toEntity(quizzForm))));
     }
 
     @GetMapping("/{id:[0-9]+}")
@@ -46,4 +46,14 @@ public class QuizzController {
         return ResponseEntity.status(HttpStatus.FOUND).body(quizzService.getAll().stream().map(QuizzDTO::toDTO).toList());
     }
 
+    @GetMapping("/all/{id:[0-9]+}")
+    public ResponseEntity<List<QuizzDTO>> getAllByUser(@PathVariable Long id){
+        return ResponseEntity.ok(quizzService.getQuizzById(this.userService.getOne(id)).stream().map(QuizzDTO::toDTO).toList());
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Void> updateQuizz(@RequestBody Quizz quizz){
+        quizzService.update(1L, quizz);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -4,6 +4,7 @@ import com.example.labofinal.models.entity.Question;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,7 @@ public class QuestionSmallDTO {
 
     private String title;
     private String explication;
-    private Set<AnswerDTO> answers;
+    private List<AnswerDTO> answers;
     private AnswerDTO goodAnswer;
 
     public static QuestionSmallDTO toDTO(Question entity){
@@ -23,7 +24,7 @@ public class QuestionSmallDTO {
         return QuestionSmallDTO.builder()
                 .title(entity.getTitle())
                 .explication(entity.getExplication())
-                .answers(entity.getAnswers().stream().map(AnswerDTO::toDTO).collect(Collectors.toSet()))
+                .answers(entity.getAnswers().stream().map(AnswerDTO::toDTO).toList())
                 .build();
     }
 

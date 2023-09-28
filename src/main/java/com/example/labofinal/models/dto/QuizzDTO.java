@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,9 +16,9 @@ public class QuizzDTO {
     private Long id;
     private LocalDate date;
     private Integer goodAnswer;
-    private Set<QuestionSmallDTO> questionList;
+    private List<QuestionSmallDTO> questionList;
     private Set<String> userAnswers;
-    private String difficultyName;
+    private Difficulty difficulty;
     private String userName;
 
     public static QuizzDTO toDTO(Quizz entity){
@@ -28,7 +29,9 @@ public class QuizzDTO {
                 .id(entity.getId())
                 .date(entity.getDate())
                 .goodAnswer(entity.getGoodAnswer())
-                .questionList(entity.getQuestionList().stream().map(QuestionSmallDTO::toDTO).collect(Collectors.toSet()))
+                .questionList(entity.getQuestionList().stream().map(QuestionSmallDTO::toDTO).toList())
+                .difficulty(entity.getDifficulty())
+                .userName(entity.getUser().getUsername())
                 .build();
     }
 }
